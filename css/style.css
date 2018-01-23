@@ -3,7 +3,7 @@ body {
     background: #f1f1f1;
     font-size: 1em;
     font-family: Arial, sans-serif;
-    min-height: 500px;
+    max-height: 500px;
     padding-bottom: 20px;
 }
 
@@ -47,7 +47,7 @@ body {
 }
 
 .weathersearch .weathersearch-input {
-    font-size: 7em;
+    font-size: 5em;
 }
 
 .weathersearch-input:focus,
