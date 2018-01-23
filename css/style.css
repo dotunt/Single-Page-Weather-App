@@ -44,6 +44,7 @@ body {
     background: transparent;
     font-size: 0.8em;
     color: #ec5a62;
+    -webkit-appearance: none;
 }
 
 .weathersearch .weathersearch-input {
@@ -57,8 +58,8 @@ body {
 
 .weathersearch-submit {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     text-indent: 100px;
     overflow: hidden;
     right: 0;
