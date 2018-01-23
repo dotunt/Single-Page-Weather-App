@@ -1,24 +1,26 @@
 <!DOCTYPE html>
+<html lang="en" class="no-js">
+
 <head>
-	<meta name="description" content="A very simple weather forecast app">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="index.css">
-	<title>Weather App</title>
+    <meta name="description" content="A very simple weather forecast app">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 </head>
+
 <body>
-<script src="index.js"></script>	
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>	
-<form name="weatherForm" onSubmit="event.preventDefault(); requestWeather();">
-  <fieldset>
-  <legend>Weather Search</legend>  
-  <input name = "cityName" type="text" id="cityInput" placeholder="City Name"></input><br>
-	<input name="scale" type="radio" value="metric" checked>Celsius</input>
-	<input name="scale" type="radio" value="imperial">Fahrenheit</input><br>	
-	<input type="submit">
-</fieldset>
-</form>
-<canvas id="myChart" height="350px"></canvas>
-<div id="weatherForecast">
-</div>
+    <div id="weathersearch" class="weathersearch weathersearch.open open">
+        <form class="weathersearch-form" name="weatherForm" onSubmit="event.preventDefault(); requestWeather();">
+            <input name="cityName" class="weathersearch-input" type="search" placeholder="Enter City..">
+            <input name="scale" type="radio" value="metric" checked>Celsius</input>
+            <input name="scale" type="radio" value="imperial">Fahrenheit</input>
+            <button class="weathersearch-submit" type="submit">Search</button>
+        </form>
+    </div>
+    <canvas id="myChart" height="350px"></canvas>
+    <div id="weatherForecast"></div>
 </body>
+
 </html>
