@@ -1,5 +1,13 @@
-let myChart;
 let tempScale;
+const myChart = (() => {
+  let chart;
+  const get = (ctx, options) => {
+    if (chart) chart.destroy();
+    chart = new Chart(ctx, options);
+    return chart;
+  };
+  return get;
+})();
 const months_arr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const arr_map = [0,1,2,3,4,5,6];
 const options = { weekday: "short", month: "short", day: "numeric" };
@@ -41,10 +49,7 @@ function displayWeather(forecast) {
   const scale = (tempScale === "metric") ? "C" : "F"; 
   const pressures = Array.from(arr_map, index => forecast.list[index].pressure);
   const avgPressure = Math.round(pressures.reduce((total,num) => total + num, 0) / 7 * 100) / 100;
-  if(myChart){
-  myChart.destroy();  
-  }
-  myChart = new Chart(ctx, {
+  myChart(ctx, {
     type: "line",
     data: {
       labels: Array.from(arr_map,index => dateTimeFormat.format(forecast.list[index].dt * 1000)),
