@@ -1,6 +1,10 @@
 let myChart;
-let months_arr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 let tempScale;
+const months_arr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const arr_map = [0,1,2,3,4,5,6];
+const options = { weekday: "short", month: "short", day: "numeric" };
+const dateTimeFormat = new Intl.DateTimeFormat("en-CA-u-ca-iso8601", options);
+
 
 function requestWeather() {
   const form = document.forms.weatherForm;
@@ -15,7 +19,7 @@ function requestWeather() {
   fetch(apiURL)
     .then(checkData)
     .then(displayWeather)
-    .catch(error => console.log("Something went wrong!", error));
+    .catch(error => console.error("Something went wrong!", error));
 }
 
 function checkData(response) {
@@ -31,45 +35,23 @@ function checkData(response) {
     throw new Error(response.statusText);
   }
 }
- 
-function getDate(timestamp){
- let date = new Date(timestamp*1000);
- let month = months_arr[date.getMonth()];
- let day = date.getDate();
- return `${day} ${month}`; 
-}
-
 
 function displayWeather(forecast) {
-  let ctx = document.getElementById("myChart").getContext("2d");
-  let scale = (tempScale === "metric") ? "C" : "F"; 
+  const ctx = document.getElementById("myChart").getContext("2d");
+  const scale = (tempScale === "metric") ? "C" : "F"; 
+  const pressures = Array.from(arr_map, index => forecast.list[index].pressure);
+  const avgPressure = Math.round(pressures.reduce((total,num) => total + num, 0) / 7 * 100) / 100;
   if(myChart){
   myChart.destroy();  
   }
   myChart = new Chart(ctx, {
     type: "line",
     data: {
-      labels: [
-        getDate(forecast.list[0].dt),
-        getDate(forecast.list[1].dt),
-        getDate(forecast.list[2].dt),
-        getDate(forecast.list[3].dt),
-        getDate(forecast.list[4].dt),
-        getDate(forecast.list[5].dt),
-        getDate(forecast.list[6].dt),
-      ],
+      labels: Array.from(arr_map,index => dateTimeFormat.format(forecast.list[index].dt * 1000)),
       datasets: [
         {
           label: `${forecast.city.name}, ${forecast.city.country}`,
-          data: [
-            forecast.list[0].temp.day,
-            forecast.list[1].temp.day,
-            forecast.list[2].temp.day,
-            forecast.list[3].temp.day,
-            forecast.list[4].temp.day,
-            forecast.list[5].temp.day,
-            forecast.list[6].temp.day,
-          ],
+          data: Array.from(arr_map, index => forecast.list[index].temp.day),
           borderColor: ["rgba(54, 162, 235, 1)"],
           fill: false,
           borderWidth: 1
@@ -101,17 +83,12 @@ function displayWeather(forecast) {
       }
     }
   });
-
-  let averagePressure = 0;  
-  for (let i = 0; i < 7; i++) {
-    averagePressure = averagePressure + forecast.list[i].pressure;;
-  }
-  averagePressure = Math.round(averagePressure / 7 * 100) / 100;
+  
   
   document.getElementById("weatherForecast").textContent =
     `The temperature today in  
     ${forecast.city.name}, ${forecast.city.country} 
     is ${forecast.list[0].temp.day}${scale} 
     with a 7-day average pressure of  
-    ${averagePressure}hPa.`;
+    ${avgPressure}hPa.`;
 }
