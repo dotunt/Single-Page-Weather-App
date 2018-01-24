@@ -66,6 +66,17 @@ function displayWeather(forecast) {
       ]
     },
     options: {
+        tooltips: {
+                enabled: true,
+                mode: 'single',
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                   const mainWeather = forecast.list[tooltipItem.index].weather[0].main.toLowerCase();
+                   const weatherDescription = forecast.list[tooltipItem.index].weather[0].description;
+                   const datasetLabel = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                   return `${datasetLabel+scale}, ${mainWeather}, ${weatherDescription}.`;
+                  }
+                }},
       maintainAspectRatio: false,
       scales: {
         yAxes: [
@@ -93,10 +104,12 @@ function displayWeather(forecast) {
   
   
   document.getElementById("weatherForecast").textContent =
-    `The temperature today in  
+    `The forecast for today in  
     ${forecast.city.name}, ${forecast.city.country} 
     is ${forecast.list[0].temp.day}${scale} 
-    with a 7-day average pressure of  
+    (${forecast.list[0].weather[0].main.toLowerCase()}, 
+     ${forecast.list[0].weather[0].description}). 
+    The 7-day average pressure is  
     ${avgPressure}hPa.`;
 }
 
