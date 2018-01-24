@@ -1,3 +1,5 @@
+const Chart = require('chart.js');
+
 let tempScale;
 const myChart = (() => {
   let chart;
@@ -97,3 +99,13 @@ function displayWeather(forecast) {
     with a 7-day average pressure of  
     ${avgPressure}hPa.`;
 }
+
+function main() {
+  const form = document.getElementById('weather-form');
+  form && form.addEventListener && form.addEventListener('submit', evt => {
+    evt.preventDefault();
+    requestWeather();
+  });
+}
+
+main();
