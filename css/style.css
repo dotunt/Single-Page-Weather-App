@@ -44,6 +44,7 @@ body {
     background: transparent;
     font-size: 0.8em;
     color: #ec5a62;
+    text-overflow: ellipsis;
     -webkit-appearance: none;
 }
 
