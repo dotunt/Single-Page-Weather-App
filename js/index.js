@@ -1,5 +1,5 @@
 const Chart = require('chart.js');
-
+const form = document.forms.weatherForm;
 let tempScale;
 const myChart = (() => {
   let chart;
@@ -17,7 +17,6 @@ const dateTimeFormat = new Intl.DateTimeFormat("en-CA-u-ca-iso8601", options);
 
 
 function requestWeather() {
-  const form = document.forms.weatherForm;
   const cityName = form.elements.cityName.value;
   tempScale = form.elements.scale.value;
   const apiURL =
@@ -114,7 +113,6 @@ function displayWeather(forecast) {
 }
 
 function main() {
-  const form = document.getElementById('weather-form');
   form && form.addEventListener && form.addEventListener('submit', evt => {
     evt.preventDefault();
     requestWeather();
