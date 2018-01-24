@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <script src="js/index.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 </head>
 
 <body>
     <div id="weathersearch" class="weathersearch weathersearch.open open">
-        <form class="weathersearch-form" name="weatherForm" onSubmit="event.preventDefault(); requestWeather();">
+        <form class="weathersearch-form" name="weatherForm" id="weather-form">
             <input name="cityName" class="weathersearch-input" type="search" placeholder="Enter City..">
             <input name="scale" type="radio" value="metric" checked>Celsius</input>
             <input name="scale" type="radio" value="imperial">Fahrenheit</input>
@@ -21,6 +19,7 @@
     </div>
     <canvas id="myChart" height="350px"></canvas>
     <div id="weatherForecast"></div>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
