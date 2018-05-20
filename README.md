@@ -6,6 +6,3 @@ The weather data is pulled using OpenWeatherMaps API.
 Install Parceljs with npm install -g parcel-bundler
 Run parcel build --public-url ./ index.html
 The app would be in the dist folder.
-
-#App Web Page
-https://dotunt.github.io/Single-Page-Weather-App/
